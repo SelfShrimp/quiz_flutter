@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz/Classes/quiz_class.dart';
 import 'package:quiz/rest/quiz_questions.dart';
+import 'package:quiz/widgets/quiz_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum Category { Linux, DevOps, Networking }
 
@@ -149,8 +152,14 @@ class _SelectPageState extends State<SelectPage> {
                 padding: const EdgeInsets.only(top: 20),
                 child: ElevatedButton(
                     onPressed: () async {
-                      var a = await auth('${categorySelect.toString().split('.').last}', '${difficultySelect.toString().split('.').last}');
-                      print(a);
+                      List<Quiz> quiz = await auth('${categorySelect.toString().split('.').last}', '${difficultySelect.toString().split('.').last}');
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.setInt('counter', 0);
+                      //if(!context.mounted) return;
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => QuizScreen(questList: quiz,)),
+                      );
                     },
                     child: const Text("Start")),
               )

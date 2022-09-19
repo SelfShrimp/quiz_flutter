@@ -9,15 +9,15 @@ part of 'quiz_class.dart';
 Quiz _$QuizFromJson(Map<String, dynamic> json) => Quiz(
       json['question'] as String?,
       json['description'] as String?,
-      (json['answers'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      (json['correct_answers'] as List<dynamic>?)
-          ?.map((e) => e as bool)
-          .toList(),
+      json['answers'] == null
+          ? null
+          : Answer.fromJson(json['answers'] as Map<String, dynamic>),
+      json['correct_answer'] as String?,
     );
 
 Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
       'question': instance.question,
       'description': instance.description,
-      'answers': instance.answers,
+      'answers': instance.answers?.toJson(),
       'correct_answers': instance.correctAnswers,
     };
