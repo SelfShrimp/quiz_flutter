@@ -148,8 +148,9 @@ class _SelectPageState extends State<SelectPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: ElevatedButton(
-                    onPressed: () {
-                      auth('$categorySelect', '$difficultySelect');
+                    onPressed: () async {
+                      var a = await auth('${categorySelect.toString().split('.').last}', '${difficultySelect.toString().split('.').last}');
+                      print(a);
                     },
                     child: const Text("Start")),
               )
