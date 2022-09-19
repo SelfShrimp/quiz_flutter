@@ -155,6 +155,8 @@ class _SelectPageState extends State<SelectPage> {
                       List<Quiz> quiz = await auth('${categorySelect.toString().split('.').last}', '${difficultySelect.toString().split('.').last}');
                       final prefs = await SharedPreferences.getInstance();
                       await prefs.setInt('counter', 0);
+                      await prefs.setString('category', categorySelect.toString().split('.').last);
+                      await prefs.setString('diff', difficultySelect.toString().split('.').last);
                       //if(!context.mounted) return;
                       Navigator.pushReplacement(
                         context,

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/Classes/quiz_class.dart';
+import 'package:quiz/widgets/result_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-late final SharedPreferences prefs;
-
 class QuizScreen extends StatelessWidget {
-  const QuizScreen({
+  QuizScreen({
     Key? key,
     this.questList,
   }) : super(key: key);
 
+  late SharedPreferences prefs;
   final List<Quiz>? questList;
 
   @override
@@ -100,6 +100,12 @@ class QuizScreen extends StatelessWidget {
           context,
           MaterialPageRoute(builder: (context) => QuizScreen(questList: questList,)),
         );
+      }
+      else {
+        Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => ResultScreen(result: prefs.getInt("counter")!,)),
+      );
       }
   }
 }
